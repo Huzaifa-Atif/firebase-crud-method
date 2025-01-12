@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input id="name" type="text" placeholder="enter your name" />
+    <input id="password" type="password" placeholder="enter your password" />
+    <input id="email" type="email" placeholder="enter your email" />
+    <button id="submit">submit</button>
+    <button id="update">update</button>
+    <button id="delete">delete</button>
+  </body>
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-analytics.js";
+    import {
+      getFirestore,
+      doc,
+      addDoc,
+      setDoc,
+      updateDoc,
+      deleteDoc,
+      collection,
+    } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js";
+
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyA77VJGHocpqFMjDRVpbg9bXibLmAv74so",
+      authDomain: "crud-operation-2c610.firebaseapp.com",
+      projectId: "crud-operation-2c610",
+      storageBucket: "crud-operation-2c610.firebasestorage.app",
+      messagingSenderId: "446653310384",
+      appId: "1:446653310384:web:40e24940b11151b0fea275",
+      measurementId: "G-4J5DFBV75M",
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    // Initialize Cloud Firestore and get a reference to the service
+    const db = getFirestore(app);
+
+    const submit = document.getElementById("submit");
+    const update = document.getElementById("update");
+    const cancle = document.getElementById("delete");
+
+    submit.addEventListener("click", () => {
+      const name = document.getElementById("name").value;
+      const password = document.getElementById("password").value;
+      const email = document.getElementById("email").value;
+
+      addDoc(collection(db, "users"), {
+        name: name,
+        email: email,
+        password: password,
+      });
+      alert("created");
+    });
+
+    update.addEventListener("click", async () => {
+  const name = document.getElementById("name").value;
+  const password = document.getElementById("password").value;
+  const email = document.getElementById("email").value;
+
+  const docRef = doc(db, "users", "KlePTiwZfZp2F2tMhsZJ");
+  try {
+    await updateDoc(docRef, {
+      name: name,
+      email: email,
+      password: password,
+    });
+    alert("Document updated successfully!");
+  } catch (error) {
+    alert(`Error updating document: ${error.message}`);
+  }
+});
+
+
+cancle.addEventListener("click", async () => {
+  const name = document.getElementById("name").value;
+  const password = document.getElementById("password").value;
+  const email = document.getElementById("email").value;
+
+  const deleteDoc = doc(db, "users", "KlePTiwZfZp2F2tMhsZJ");
+  try {
+    await updateDoc(deleteDoc, {
+      name: name,
+      email: email,
+      password: password,
+    });
+    alert("Document updated successfully!");
+  } catch (error) {
+    alert(`Error updating document: ${error.message}`);
+  }
+});
+
+  </script>
+</html>
